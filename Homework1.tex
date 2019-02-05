@@ -1,0 +1,163 @@
+% !TEX TS-program = pdflatex
+% !TEX encoding = UTF-8 Unicode
+
+% This is a simple template for a LaTeX document using the "article" class.
+% See "book", "report", "letter" for other types of document.
+
+\documentclass[20pt]{article} % use larger type; default would be 10pt
+
+\usepackage[utf8]{inputenc} % set input encoding (not needed with XeLaTeX)
+
+%%% Examples of Article customizations
+% These packages are optional, depending whether you want the features they provide.
+% See the LaTeX Companion or other references for full information.
+
+%%% PAGE DIMENSIONS
+\usepackage{geometry} % to change the page dimensions
+\geometry{a4paper} % or letterpaper (US) or a5paper or....
+% \geometry{margin=2in} % for example, change the margins to 2 inches all round
+% \geometry{landscape} % set up the page for landscape
+%   read geometry.pdf for detailed page layout information
+
+\usepackage{graphicx} % support the \includegraphics command and options
+
+% \usepackage[parfill]{parskip} % Activate to begin paragraphs with an empty line rather than an indent
+
+%%% PACKAGES
+\usepackage{booktabs} % for much better looking tables
+\usepackage{array} % for better arrays (eg matrices) in maths
+\usepackage{paralist} % very flexible & customisable lists (eg. enumerate/itemize, etc.)
+\usepackage{verbatim} % adds environment for commenting out blocks of text & for better verbatim
+%\usepackage{subfig} % make it possible to include more than one captioned figure/table in a single float
+\usepackage{mathtools}
+\usepackage{graphicx} % supports images in latex
+% These packages are all incorporated in the memoir class to one degree or another...
+
+\usepackage{graphicx}
+\usepackage{subcaption}
+
+%%% Other stuff
+\DeclarePairedDelimiter\ceil{\lceil}{\rceil}
+\DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
+
+%%% HEADERS & FOOTERS
+\usepackage{fancyhdr} % This should be set AFTER setting up the page geometry
+\pagestyle{fancy} % options: empty , plain , fancy
+\renewcommand{\headrulewidth}{0pt} % customise the layout...
+\lhead{}\chead{}\rhead{}
+\lfoot{}\cfoot{\thepage}\rfoot{}
+
+%%% SECTION TITLE APPEARANCE
+\usepackage{sectsty}
+\allsectionsfont{\sffamily\mdseries\upshape} % (See the fntguide.pdf for font help)
+% (This matches ConTeXt defaults)
+
+%%% ToC (table of contents) APPEARANCE
+\usepackage[nottoc,notlof,notlot]{tocbibind} % Put the bibliography in the ToC
+\usepackage[titles,subfigure]{tocloft} % Alter the style of the Table of Contents
+\renewcommand{\cftsecfont}{\rmfamily\mdseries\upshape}
+\renewcommand{\cftsecpagefont}{\rmfamily\mdseries\upshape} % No bold!
+
+%%% Code syntax highliting
+\usepackage{listings}
+%\begin{lstlisting}[language=java]
+%\end{lstlisting}
+
+%%% graphics path \graphicspath{{./HW5}}
+
+%%% END Article customizations
+
+%%% nice things to keep around
+
+% \noindent\rule{2cm}{0.4pt} 
+%%% puts a small horizontal line
+
+% \mathcal{O} 
+%%% big O notation
+
+%%% The "real" document content comes below...
+
+\title{Computational Statistics Homework 1}
+\author{Liam Dillingham}
+%\date{} % Activate to display a given date or no date (if empty),
+         % otherwise the current date is printed 
+
+\begin{document}
+\maketitle
+
+\section{Question 1} 
+Create an R program which does the following in sequence: \\
+
+\subsection{Create a vector $x$ which contains the numbers $[9,10,11,12,13,14,15,16]$.}
+\begin{lstlisting}[language=R]
+> x = c(9,10,11,12,13,14,15,16)
+\end{lstlisting}
+
+\subsection{Print the last 3 elements of $x$.}
+\begin{lstlisting}[language=R]
+> x[(length(x)-2):length(x)]
+[1] 14 15 16
+\end{lstlisting}
+
+\subsection{Print out all the even numbers in $x$.}
+\begin{lstlisting}[language=R]
+> x[lapply(x, "%%", 2) == 0]
+[1] 10 12 14 16
+\end{lstlisting}
+
+\subsection{Delete all the even numbers form $x$ and print the resulting list}
+\begin{lstlisting}[language=R]
+> x = x[!x %in% x[lapply(x, "%%", 2) == 0]]
+> x
+[1]  9 11 13 15
+\end{lstlisting}
+
+\newpage
+\section{Question 2}
+Write an R program which takes as input an integer $n$ and computes $\sum_{i=1}^{n} (1/2)^{i}$ in three ways: using a $for$ loop, using a $while$ loop, and without a loop (i.e. an analytic function). Print out the results for all three.  What happens when $n$ is very large? do you have any suggerstions on how to make your program more robust to errors when $n$ is large? \\
+
+Here is the code:
+
+\begin{lstlisting}[language=R]
+func = function(n, mode) {
+  
+  if(mode == 1) {
+    result = 0
+    for(i in 1:n) {
+      result = result + 0.5 ^ i
+    }
+    return(result)
+  } else if(mode == 2) {
+    i = 1
+    result = 0
+    while(i <= n) {
+      result = result + 0.5 ^ i
+      i = i + 1
+    }
+    return(result)
+  } else {
+    ### NOT FINISHED
+  }
+\end{lstlisting}
+
+\section{Question 3}
+Show true the following: 
+
+\subsection{$x^{3}$ is $\mathcal{O}(x^{3})$ and $\Theta(x^{3})$ but not $\Theta(x^{4})$.}
+
+$x^{3}$ is $\mathcal{O}(x^{3})$ as there exists a constant $c$ (i.e. 1) such that $x^{3} \leq cx^{3}$  $\forall x \geq x_0$, where $x_0$ is some arbitrary but fixed $x$. Also,  $x^{3}$ is $\Theta(x^{3})$ since there exists constants $c_1$ and $c_2$ (i.e. 1 and 1) such that $c_1x^{3} \leq x^{3} \leq c_2x^{3}$  $\forall x \geq x_0$.  However, $x^{3}$ is not $\Theta(x^{4})$ as the distance between $x^{3}$ and $x^{4}$ differs by a factor of $x$ for any given value of $x$.  Therefore, there is no constants $c_1$ and $c_2$ such that $c_1x^{4} \leq x^{3} \leq c_2x^{4}$.
+
+\subsection{For any real constants $a$ and $b>0$, we have $(n+a)^{b} = \Theta(n^{b})$.}
+
+notice that $(n+a)^{b}$ follows the rule of binomial expansion. That is, the largest power of $n$ in the expansion will be $n^{b}$.  as $n\rightarrow +\infty$, The equation become dominated by the largest power of $n$, $n^{b}$.  Thus, $(n+a)^{b} = \Theta(n^{b})$.
+
+\subsection{$(\log(n))^{k} = \mathcal{O}(n)$ for any $k$.}
+
+\subsection{$n/(n+1) = 1 + \mathcal{O}(1/n)$}
+
+\subsection{$\sum_{i=0}^{\ceil{\log_2(n)}} 2^{i}$ is $\Theta(n)$.}
+\end{document}
+
+
+
+
