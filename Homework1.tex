@@ -121,23 +121,24 @@ Here is the code:
 \begin{lstlisting}[language=R]
 func = function(n, mode) {
   
+  result = 0
   if(mode == 1) {
-    result = 0
     for(i in 1:n) {
       result = result + 0.5 ^ i
     }
     return(result)
   } else if(mode == 2) {
     i = 1
-    result = 0
     while(i <= n) {
       result = result + 0.5 ^ i
       i = i + 1
     }
     return(result)
   } else {
-    ### NOT FINISHED
+    result = 1 - (0.5 ^ n)
+    return(result)
   }
+}
 \end{lstlisting}
 
 \section{Question 3}
@@ -153,9 +154,52 @@ notice that $(n+a)^{b}$ follows the rule of binomial expansion. That is, the lar
 
 \subsection{$(\log(n))^{k} = \mathcal{O}(n)$ for any $k$.}
 
+Note that $log_b(x)$ is the inverse operation for $x^{b}$.  Although we do not know the base for the $log(n)$ function in this problem, if we compose the inverse of two functions (logarithmic and exponential) we will essentially get the input $n$ as the result, giving us $\mathcal{O}(n)$.
+
 \subsection{$n/(n+1) = 1 + \mathcal{O}(1/n)$}
+note that $\mathcal{O}(1/n)$ implies the asymtotic behavior of $1/n$.  Since $1/n \rightarrow 0$ as $n\rightarrow \infty$, then the equation becomes $n/(n+1) = 1 + 0$.  Then if we apply a limit as $n \rightarrow \infty$ to both sides, we get $1 =1$ which is true.
 
 \subsection{$\sum_{i=0}^{\ceil{\log_2(n)}} 2^{i}$ is $\Theta(n)$.}
+
+Since $i$th iteration of the summation will be twice as much as the $i-1$ iteration, and will be greater than the total sum of the $0 \rightarrow i-1$ sum.  Since the function is doubling for each increase in $n$, then we can say the function is roughly growing at a rate of $2n$, which is $\Theta(n)$.
+
+
+\section{Question 4}
+
+\subsection{Implement the bubble sort algorithm taught in the course}
+\begin{lstlisting}[language=R]
+bubblesort = function(x) {
+  n = length(x)
+  swapped = TRUE
+  
+  while(swapped) {
+    swapped = FALSE
+    for(i in 2:n) {
+      if(x[i-1] > x[i]) {
+        # swap 
+        temp = x[i-1]
+        x[i-1] = x[i]
+        x[i] = temp
+        swapped = TRUE
+      }
+    }
+  }
+  return(x)
+}
+\end{lstlisting}
+
+\subsection{Compare the CPU times for mergesort and bubble sort for a sample size of 1000 normally-distributed numbers}
+
+Bubblesort time: $1.3s$ \\ 
+Mergesort time:  $0.07s$
+
+\subsection{Calculate the sample mean and variance for the cpu times after 100 iterations}
+Mean Mergesort time: $0.054s$ \\
+Mergesort time variance: $0.000230s$ \\
+Mean Bubblesort time: $1.252s$ \\
+Bubblesort time: $0.0028s$ \\
+
+This appears to be consistent with my predictions. $\mathcal{O}(n\log(n))$ is much more efficient than bubblesort's $\mathcal{O}(n^{2})$ time.  
 \end{document}
 
 
