@@ -1,0 +1,111 @@
+% !TEX TS-program = pdflatex
+% !TEX encoding = UTF-8 Unicode
+
+% This is a simple template for a LaTeX document using the "article" class.
+% See "book", "report", "letter" for other types of document.
+
+\documentclass[20pt]{article} % use larger type; default would be 10pt
+
+\usepackage[utf8]{inputenc} % set input encoding (not needed with XeLaTeX)
+
+%%% Examples of Article customizations
+% These packages are optional, depending whether you want the features they provide.
+% See the LaTeX Companion or other references for full information.
+
+%%% PAGE DIMENSIONS
+\usepackage{geometry} % to change the page dimensions
+\geometry{a4paper} % or letterpaper (US) or a5paper or....
+% \geometry{margin=2in} % for example, change the margins to 2 inches all round
+% \geometry{landscape} % set up the page for landscape
+%   read geometry.pdf for detailed page layout information
+
+\usepackage{graphicx} % support the \includegraphics command and options
+
+% \usepackage[parfill]{parskip} % Activate to begin paragraphs with an empty line rather than an indent
+
+%%% PACKAGES
+\usepackage{booktabs} % for much better looking tables
+\usepackage{array} % for better arrays (eg matrices) in maths
+\usepackage{paralist} % very flexible & customisable lists (eg. enumerate/itemize, etc.)
+\usepackage{verbatim} % adds environment for commenting out blocks of text & for better verbatim
+%\usepackage{subfig} % make it possible to include more than one captioned figure/table in a single float
+\usepackage{mathtools}
+\usepackage{graphicx} % supports images in latex
+% These packages are all incorporated in the memoir class to one degree or another...
+
+\usepackage{graphicx}
+\usepackage{subcaption}
+
+%%% Other stuff
+\DeclarePairedDelimiter\ceil{\lceil}{\rceil}
+\DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
+
+%%% HEADERS & FOOTERS
+\usepackage{fancyhdr} % This should be set AFTER setting up the page geometry
+\pagestyle{fancy} % options: empty , plain , fancy
+\renewcommand{\headrulewidth}{0pt} % customise the layout...
+\lhead{}\chead{}\rhead{}
+\lfoot{}\cfoot{\thepage}\rfoot{}
+
+%%% SECTION TITLE APPEARANCE
+\usepackage{sectsty}
+\allsectionsfont{\sffamily\mdseries\upshape} % (See the fntguide.pdf for font help)
+% (This matches ConTeXt defaults)
+
+%%% ToC (table of contents) APPEARANCE
+\usepackage[nottoc,notlof,notlot]{tocbibind} % Put the bibliography in the ToC
+\usepackage[titles,subfigure]{tocloft} % Alter the style of the Table of Contents
+\renewcommand{\cftsecfont}{\rmfamily\mdseries\upshape}
+\renewcommand{\cftsecpagefont}{\rmfamily\mdseries\upshape} % No bold!
+
+%%% Code syntax highliting
+\usepackage{listings}
+%\begin{lstlisting}[language=java]
+%\end{lstlisting}
+
+%%% graphics path \graphicspath{{./HW5}}
+
+%%% END Article customizations
+
+%%% nice things to keep around
+
+% \noindent\rule{2cm}{0.4pt} 
+%%% puts a small horizontal line
+
+% \mathcal{O} 
+%%% big O notation
+
+%%% The "real" document content comes below...
+
+\title{Computational Statistics Homework 1}
+\author{Liam Dillingham}
+%\date{} % Activate to display a given date or no date (if empty),
+         % otherwise the current date is printed 
+
+\begin{document}
+\maketitle
+
+\section{Question 1} 
+The function $p(x) = sin(x)$ is a density for $x \in (0, \pi / 2)$.
+\subsection{Describe an inverse CDF transform method to sample random variables with this density.  Plot the histogram and the true density for visual verification.}
+
+\subsection{Set up a rejection sampling method to sample from $p(x)$ using a proposal density $g(x)$. Plot the histogram and the true density for visual verification}
+\textit{Hint: You can take $g(x)$ as the uniform density on the interval $(0,\pi / 2)$}. \\
+
+\section{Question 2}
+Determine a method to draw samples from the distribution with PDF: $f(x) \propto exp(-x^{4} / 12)$, for $x \in \!R$.  Turn in derivation and code. Plot histogram and true density for visual verification. \\ \noindent\rule{2cm}{0.4pt} \\
+
+
+\section{Question 3}
+Suppose that $X \in \!R^{nxn}$ is a random matrix with independent $\mathcal{N}(0,1)$ entries. Let $\ell_1$ be the smallest Eigenvalue of $S_n = X^{T}X/n$ and let $Y = n\ell_1$.  Edelman showed that as $n \rightarrow \infty$, the PDF of $Y$ approaches \\ 
+{\Large $f(y) = \frac{1+\sqrt{y}}{2\sqrt{y}}e^{-(y/2 + \sqrt{y})}$, $0<y<\infty$ } 
+\subsection{Develop a method to sample $Y$ from the density $f(y)$ given in the equation above. Show derivation and code. Plot histogram and true density for visual verification.}
+
+\subsection{Test method by estimating $\!E(log(Y))$ by simple Monte Carlo, and giving a $99\%$ confidence interval. Edelman found that the answer was roughly -1.68788.}
+
+
+\end{document}
+
+
+
+
