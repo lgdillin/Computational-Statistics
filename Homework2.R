@@ -9,16 +9,18 @@ sin_rvgen = function(n=1000) {
 
 isin_rvgen = function(n=1000) {
   u = runif(n)
-  x = acos(u)
+  x = acos(1-u)
   return(x)
 }
 
 arfunc = function(n=1000) {
-  rv = rep(0,n)
+  m = 1
   a = 0
+  rv = rep(0,n)
+  
   for(i in 1:n) {
     x = runif(1)
-    if(x > -acos(x)) {
+    if(x < sin(x)) {
       rv[i] = x
       a = a + 1
     }

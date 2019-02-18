@@ -105,7 +105,7 @@ so the result of the integral should be $-cos(x)$. Now we need the inverse of $c
 \begin{lstlisting}[language=R]
 isin_rvgen = function(n=1000) {
   u = runif(n)
-  x = acos(u)
+  x = acos(1-u)
   return(x)
 }
 
