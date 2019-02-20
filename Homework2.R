@@ -44,4 +44,14 @@ plot(samples)
 hist(samples, freq = F, breaks = 30)
 lines(seq(0, 2, 0.1), sin(seq(0, 2, 0.1)),  col="red")
 
+### PRoblem 2
+z = rgamma(1e5, shape = (1/4), rate = (1/12))
+z = z^(1/4)
+hist(z, breaks = 30, freq = F, col = rgb(0.75,0.4,0.1,0.5)) # z is your sample
+lambda = 1/12; alpha = 1/4
+target <- function(x){exp(-lambda*x^(1/alpha))/
+    integrate(function(x) exp(-lambda*x^(1/alpha)),0,Inf)$value}
+curve(target,lwd=2,add=T)
+
+
 
