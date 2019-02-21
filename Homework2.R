@@ -67,6 +67,14 @@ S_n = (1/n) * (t(m1) %*% m1)
 ev = eigen(S_n)$values
 Y = n * min(ev)
 
-hist(1)
+hist(-20, xlim=range(-20, 100))
 target = function(y) { ((1+sqrt(y)) / (2*sqrt(y))) * exp(-(y/2 + sqrt(y))) }
+    # integrate(function(y)  ((1+sqrt(y)) / (2*sqrt(y))) * exp(-(y/2 + sqrt(y))), 0, Inf)$value }
 curve(target,lwd=2,add=T)
+alpha = 10
+target1 = function(x) {
+  x^(alpha) / x^(alpha + 1)
+}
+curve(target1, lwd=2, add=T)
+
+
