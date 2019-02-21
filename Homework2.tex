@@ -157,6 +157,38 @@ arfunc()
 \section{Question 2}
 Determine a method to draw samples from the distribution with PDF: $f(x) \propto exp(-x^{4} / 12)$, for $x \in \!R$.  Turn in derivation and code. Plot histogram and true density for visual verification. \\ \noindent\rule{2cm}{0.4pt} \\
 
+We can relate this density to its general form, where $f(x) \propto exp(-kx^{n})$. In our case, $k=1/12$, and $n=4$.  Let $Y = X^{4}$. Note $x>0$ so $y>0$. We want to perform a change of variables so we can have our density in terms of $y$.  
+
+$ \frac{dy}{dx} = 4x^{3}$. From the change of variables theorem, $f_y(y) = f_x(x) \mid \frac{dy}{dx} \mid$. Thus, $f_y(y) = exp(-x^{4}/12)\frac{1}{4}x^{-3}$.  Now we need to swap out $x$ for $y$.  Observe the relationship: $y=x^{4}$ Which is change to $x=y^{1/4}$. By subsitution, we have $$f_y(y)=exp(-y/12)\frac{1}{4}y^{-3/4}$$
+
+Note that this is similar to the Gamma density: $$f(u) = \frac{\lambda^{\alpha}e^{-\lambda u}u^{\alpha - 1}}{\Gamma(\alpha)}, u \geq 0$$
+
+However, we are sampling over all of $\!R$, so we need to do a coin-flip on every sample, and decide whether the sample must be negative or positive. 
+
+\newpage
+\begin{lstlisting}[language=R]
+z = rgamma(1e5, shape = (1/4), rate = (1/12))
+z = z^(1/4)
+f = runif(1e5)
+for(i in 1:1e5) {
+  if(f[i] < 0.5) {
+    z[i] = z[i] * -1
+  }
+}
+hist(z, breaks = 30, freq = F, col = rgb(0.75,0.4,0.1,0.5)) # z is your sample
+lambda = 1/12; alpha = 1/4
+target <- function(x){exp(-lambda*x^(1/alpha))/
+    integrate(function(x) exp(-lambda*x^(1/alpha)),0,Inf)$value}
+curve(target,lwd=2,add=T)
+\end{lstlisting}
+
+\begin{figure}[!htbp]
+  	\centering
+   	\begin{subfigure}[p]{0.8\linewidth}
+    	\includegraphics[width=\linewidth]{./figures/Rplot02.png}
+   	\end{subfigure}
+\end{figure} 
+
 
 \section{Question 3}
 Suppose that $X \in \!R^{nxn}$ is a random matrix with independent $\mathcal{N}(0,1)$ entries. Let $\ell_1$ be the smallest Eigenvalue of $S_n = X^{T}X/n$ and let $Y = n\ell_1$.  Edelman showed that as $n \rightarrow \infty$, the PDF of $Y$ approaches \\ 

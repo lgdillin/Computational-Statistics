@@ -47,11 +47,26 @@ lines(seq(0, 2, 0.1), sin(seq(0, 2, 0.1)),  col="red")
 ### PRoblem 2
 z = rgamma(1e5, shape = (1/4), rate = (1/12))
 z = z^(1/4)
+f = runif(1e5)
+for(i in 1:1e5) {
+  if(f[i] < 0.5) {
+    z[i] = z[i] * -1
+  }
+}
 hist(z, breaks = 30, freq = F, col = rgb(0.75,0.4,0.1,0.5)) # z is your sample
 lambda = 1/12; alpha = 1/4
 target <- function(x){exp(-lambda*x^(1/alpha))/
     integrate(function(x) exp(-lambda*x^(1/alpha)),0,Inf)$value}
 curve(target,lwd=2,add=T)
 
+#Problem 3
+n = 10
+x = rnorm(n*n, mean = 0, sd = 1)
+m1 = matrix(data = x, nrow = n, ncol = n)
+S_n = (1/n) * (t(m1) %*% m1)
+ev = eigen(S_n)$values
+Y = n * min(ev)
 
-
+hist(1)
+target = function(y) { ((1+sqrt(y)) / (2*sqrt(y))) * exp(-(y/2 + sqrt(y))) }
+curve(target,lwd=2,add=T)

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6930 64-bit) (preloaded format=pdflatex 2019.1.30)  18 FEB 2019 13:51
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6930 64-bit) (preloaded format=pdflatex 2019.1.30)  21 FEB 2019 11:09
 entering extended mode
 **./Homework2.tex
 (Homework2.tex
@@ -530,44 +530,62 @@ File: omlcmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OML/cmr/m/n' in size <10> not available
 (Font)              Font shape `OML/cmm/m/it' tried instead on input line 138.
-<./figures/Rplot01.png, id=16, 648.17157pt x 415.5525pt>
+<./figures/Rplot01.png, id=16, 648.17157pt x 414.04688pt>
 File: ./figures/Rplot01.png Graphic file (type png)
 <use ./figures/Rplot01.png>
 Package pdftex.def Info: ./figures/Rplot01.png  used on input line 153.
-(pdftex.def)             Requested size: 334.60422pt x 214.52235pt.
+(pdftex.def)             Requested size: 334.60422pt x 213.7451pt.
 
 Underfull \hbox (badness 10000) in paragraph at lines 158--159
 
  []
 
-[2 <./figures/Rplot.png>] [3 <./figures/Rplot01.png>] (Homework2.aux) ) 
+[2 <./figures/Rplot.png>] [3 <./figures/Rplot01.png>]
+LaTeX Font Info:    Font shape `OMS/cmr/bx/n' in size <10> not available
+(Font)              Font shape `OMS/cmsy/b/n' tried instead on input line 175.
+
+Overfull \hbox (49.75108pt too wide) in paragraph at lines 178--179
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
+ []
+
+LaTeX Font Info:    Font shape `OML/cmr/bx/n' in size <10> not available
+(Font)              Font shape `OML/cmm/b/it' tried instead on input line 180.
+<./figures/Rplot02.png, id=28, 648.17157pt x 415.5525pt>
+File: ./figures/Rplot02.png Graphic file (type png)
+<use ./figures/Rplot02.png>
+Package pdftex.def Info: ./figures/Rplot02.png  used on input line 188.
+(pdftex.def)             Requested size: 334.60422pt x 214.52235pt.
+[4 <./figures/Rplot02.png>] [5] (Homework2.aux) ) 
 Here is how much of TeX's memory you used:
- 7465 strings out of 492946
- 109983 string characters out of 3124934
- 362057 words of memory out of 3000000
- 11258 multiletter control sequences out of 15000+200000
- 11410 words of font info for 41 fonts, out of 3000000 for 9000
+ 7497 strings out of 492946
+ 110386 string characters out of 3124934
+ 364057 words of memory out of 3000000
+ 11287 multiletter control sequences out of 15000+200000
+ 12023 words of font info for 43 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
- 42i,10n,43p,315b,1966s stack positions out of 5000i,500n,10000p,200000b,50000s
-<C:/User
-s/lgdillin/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmb
-x10.pfb><C:/Users/lgdillin/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public
-/amsfonts/cm/cmex10.pfb><C:/Users/lgdillin/AppData/Local/Programs/MiKTeX 2.9/fo
-nts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Users/lgdillin/AppData/Local/Progra
-ms/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi12.pfb><C:/Users/lgdillin/AppD
-ata/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi7.pfb><C:/User
-s/lgdillin/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr
-10.pfb><C:/Users/lgdillin/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/
-amsfonts/cm/cmr12.pfb><C:/Users/lgdillin/AppData/Local/Programs/MiKTeX 2.9/font
-s/type1/public/amsfonts/cm/cmr17.pfb><C:/Users/lgdillin/AppData/Local/Programs/
-MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr7.pfb><C:/Users/lgdillin/AppData/L
-ocal/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmss12.pfb><C:/Users/lg
-dillin/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy10.
+ 42i,10n,43p,348b,1966s stack positions out of 5000i,500n,10000p,200000b,50000s
+<C:/Users/lgdillin/AppData/Loc
+al/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbsy10.pfb><C:/Users/lgd
+illin/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx10.p
+fb><C:/Users/lgdillin/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsf
+onts/cm/cmex10.pfb><C:/Users/lgdillin/AppData/Local/Programs/MiKTeX 2.9/fonts/t
+ype1/public/amsfonts/cm/cmmi10.pfb><C:/Users/lgdillin/AppData/Local/Programs/Mi
+KTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi12.pfb><C:/Users/lgdillin/AppData/L
+ocal/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi7.pfb><C:/Users/lgd
+illin/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmib10.
 pfb><C:/Users/lgdillin/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/ams
-fonts/cm/cmti10.pfb>
-Output written on Homework2.pdf (3 pages, 167414 bytes).
+fonts/cm/cmr10.pfb><C:/Users/lgdillin/AppData/Local/Programs/MiKTeX 2.9/fonts/t
+ype1/public/amsfonts/cm/cmr12.pfb><C:/Users/lgdillin/AppData/Local/Programs/MiK
+TeX 2.9/fonts/type1/public/amsfonts/cm/cmr17.pfb><C:/Users/lgdillin/AppData/Loc
+al/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr7.pfb><C:/Users/lgdill
+in/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmss12.pfb>
+<C:/Users/lgdillin/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfont
+s/cm/cmsy10.pfb><C:/Users/lgdillin/AppData/Local/Programs/MiKTeX 2.9/fonts/type
+1/public/amsfonts/cm/cmsy7.pfb><C:/Users/lgdillin/AppData/Local/Programs/MiKTeX
+ 2.9/fonts/type1/public/amsfonts/cm/cmti10.pfb>
+Output written on Homework2.pdf (5 pages, 195945 bytes).
 PDF statistics:
- 64 PDF objects out of 1000 (max. 8388607)
+ 84 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
- 11 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 16 words of extra memory for PDF output out of 10000 (max. 10000000)
 
