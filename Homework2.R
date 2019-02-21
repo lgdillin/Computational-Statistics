@@ -27,17 +27,17 @@ arfunc = function(M) {
     u = runif(1)
     
     # value from envelope dist
-    x = runif(1) 
-    if(u <= sin(x) / dunif(x) * M) {
+    x = runif(1, min = 0, max = pi/2) 
+    if(u <= sin(x) / dunif(x, min = 0, max = pi/2) * M) {
       return(x)
     }
   }
 }
 
-n = 1000
+n = 10000
 samples = rep(0,n)
 for(i in 1:n) {
-  samples[i] = arfunc(1)
+  samples[i] = arfunc(2/pi)
 }
 
 plot(samples)
