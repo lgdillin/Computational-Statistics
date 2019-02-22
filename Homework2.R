@@ -67,14 +67,14 @@ S_n = (1/n) * (t(m1) %*% m1)
 ev = eigen(S_n)$values
 Y = n * min(ev)
 
-hist(-20, xlim=range(-20, 100))
-target = function(y) { ((1+sqrt(y)) / (2*sqrt(y))) * exp(-(y/2 + sqrt(y))) }
+hist(rgamma(1000, shape = 1, scale = 0.001), breaks = 30)
+target = function(y) { ((1+sqrt(y)) / (2 * sqrt(y))) * exp(-1 * (y/2 + sqrt(y))) }
     # integrate(function(y)  ((1+sqrt(y)) / (2*sqrt(y))) * exp(-(y/2 + sqrt(y))), 0, Inf)$value }
-curve(target,lwd=2,add=T)
-alpha = 10
-target1 = function(x) {
-  x^(alpha) / x^(alpha + 1)
+curve(target,lwd=2,add=T,from = 0)
+alpha = 0.000001
+target1 = function(y) {
+  y^(alpha) / y^(alpha + 1)
 }
-curve(target1, lwd=2, add=T)
+curve(target1, lwd=3, add=T)
 
 

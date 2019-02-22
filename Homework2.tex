@@ -195,8 +195,57 @@ Suppose that $X \in \!R^{nxn}$ is a random matrix with independent $\mathcal{N}(
 {\Large $f(y) = \frac{1+\sqrt{y}}{2\sqrt{y}}e^{-(y/2 + \sqrt{y})}$, $0<y<\infty$ } 
 \subsection{Develop a method to sample $Y$ from the density $f(y)$ given in the equation above. Show derivation and code. Plot histogram and true density for visual verification.}
 
+I don't have a theoretical explanation for how I got the results that I did. I'm not very familiar with all of the density functions so I did a lot of searching until I found your email about truncated distributions.  I read the documentation on the "truncdist" package and tried it out.  After some tinkering I managed to get a function that covered our original $f(y)$.  I am not sure about the quality of the sampler at the extreme tails, but this could be improved by modifying the parameters underlying the truncated distribution (such as the variance in my underlying normal dist.) but I did not have enough time to learn the documentation.  
+
+\begin{lstlisting}[language=R]
+target = function(y) { ((1+sqrt(y)) / (2 * sqrt(y))) * exp(-1 * (y/2 + sqrt(y))) }
+
+arfunc = function(M) {
+  while(TRUE) {
+    # value between [0,1]
+    u = runif(1)
+    
+    # value from envelope dist
+    x = rtrunc(1, spec = 'norm', a=0, b=2)
+    if(u <= target(x) / dtrunc(x, spec = 'norm', a=0, b=2) * M) {
+      return(x)
+    }
+  }
+}
+
+n = 10000
+samples = rep(0,n)
+for(i in 1:n) {
+  samples[i] = arfunc(0.05)
+}
+
+plot(samples)
+hist(samples, freq = F, breaks = 30)
+lines(seq(0, 2, 0.1), target(seq(0, 2, 0.1)),  col="red")
+\end{lstlisting}
+
+\newpage
+\begin{figure}[!htbp]
+  	\centering
+   	\begin{subfigure}[p]{0.8\linewidth}
+    	\includegraphics[width=\linewidth]{./figures/Rplot03.png}
+   	\end{subfigure}
+\end{figure} 
+
+(As a side note, I can email my source code if you want)
+
 \subsection{Test method by estimating $\!E(log(Y))$ by simple Monte Carlo, and giving a $99\%$ confidence interval. Edelman found that the answer was roughly -1.68788.}
 
+Time was running really short, and I don't think I'm doing the right thing at all.  I  did come up with this:
+
+\begin{lstlisting}[language=R]
+N = (1/length(samples))
+sum = 0
+for(i in 1:length(samples)) {
+  sum = sum + log(samples[i])
+}
+\end{lstlisting}
+The result is: -18175.16, which is far from accurate.
 
 \end{document}
 
