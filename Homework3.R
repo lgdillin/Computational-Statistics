@@ -28,6 +28,14 @@ for(i in 1:n) {
 hist(bp, freq = F)
 #################################
 
+## Creat our posterior dis
+n = 74
+s = 16
+alpha = 2
+beta = 6.4
+theta = rgamma(1, alpha + s, beta + n - s)
+S = rbinom(1, n, theta)
+
 # normalizing function
 normalize = function(x) { return(x/sum(x)) }
 
@@ -49,34 +57,28 @@ sample_z = function(x, pi, mu){
 }
 
 
-# sample pi, i.e. p(pi | z) from a categorical distribution
-sample_pi = function(z, k) {
-  counts = colSums(outer(z, 1:k, FUN = "=="))
-  pi = gtools::rdirichlet(1, counts + 1)
-  return(pi)
+
+# sample s | theta^{i-1}, n from a binomial dist.
+sample_s = function(n, theta) {
+  s = rbinom(1, n, theta)
+  return(s)
 }
 
-# sample mu | x,z from normal
-sample_mu = function(x, z, k, prior) {
-  df = data.frame(x = x, z = z)
-  mu = rep(0, k)
-  for(i in 1:k) {
-    sample.size = sum(z==i)
-    sample.mean = ifelse(sample.size==0, 0, mean(x[z==i]))
-    
-    post.prec = sample.size + prior$prec
-    post.mean = (prior$mean * prior$prec + sample.mean * sample.size) / post.prec
-    mu[i] = rnorm(1, post.mean, sqrt(1/post.prec))
-  }
-  return(mu)
+# sample theta | s^{i}, alpha_0, beta_0, n from a beta dist.
+sample_theta = function(alpha, beta, s, n) {
+  theta = rbeta(1, alpha + s, beta + n - s)
+  return(theta)
 }
 
 
 # Gibbs sampler
 gibbs = function(x, k, niter = 1000, mu.prior = list(mean = 0, prec = 0.1)) {
-  pi = rep(1/k, k) # initialize
-  mu = rnorm(k, 0, 10)
-  z = sample_z(x, pi, mu)
+  #pi = rep(1/k, k) # initialize
+  #mu = rnorm(k, 0, 10)
+  #z = sample_z(x, pi, mu)
+  s = 16
+  n = 74
+  theta = s/n
   
   res = list(
     mu = matrix(nrow = niter, ncol = k), 
@@ -113,7 +115,8 @@ res = gibbs(x,2)
 plot(res$mu[,1],ylim=c(-4,4),type="l")
 lines(res$mu[,2],col=2)
 
-
+####
+gibbs2 = function(x, k, niter = 1000, mu.prior = list(mean = 0, prec = 0.1))
 
 
 
