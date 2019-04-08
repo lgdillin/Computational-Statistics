@@ -24,6 +24,9 @@ for(i in 1:3000) {
 plot(samples[,1],samples[,2])
 
 # Problem 2
+if(!require(rigamma)){
+  install.packages("rigamma", dependencies = TRUE, repos = 'http://cran.rstudio.com')
+}
 x = c(91, 504, 557, 609, 693, 727, 764, 803, 857, 929, 970, 1043, 1089, 1195, 1384, 1713)
 a = 3
 b = 3
