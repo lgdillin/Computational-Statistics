@@ -220,6 +220,19 @@ The values for the two $\hat{\beta_1}$ and $\hat{\beta_2}$
 A study on the metabolism in 15-year-old females yielded the following data:
 $x = (91, 504, 557, 609, 693, 727, 764, 803, 857, 929, 970, 1043, 1089, 1195, 1384, 1713)$.  Their energy intake in megajoules, follows a joint density.
 \subsection{Prove the full conditional distributions of $\theta$ and $\sigma^{2}$}
+Using the provided full condition, we derive the necessary conditional distributions:
+$$f(\sigma^{2} \mid x, \theta) = \Bigg[ \frac{1}{(\sigma^{2})^{n/2}}exp\Bigg( -\Sigma_i (x_i - \theta)^{2} / (2\sigma^{2}) \Bigg) \Bigg] \times \Bigg[ \frac{1}{\tau} exp \Bigg( -(\theta - \theta_0)^{2} / (2\tau^{2}) \Bigg) \Bigg] \times \Bigg[ \frac{1}{(\sigma^{2})^{a+1}}exp\Bigg( \frac{-b}{\sigma^{2}} \Bigg) \Bigg]$$
+Starting with deriving $\sigma^{2} \mid x, \theta$:
+$$f(\sigma^{2} \mid x, \theta) = \Bigg[ \frac{1}{(\sigma^{2})^{n/2}}exp\Bigg( -\Sigma_i (x_i - \theta)^{2} / (2\sigma^{2}) \Bigg) \Bigg] \times \Bigg[ \frac{1}{(\sigma^{2})^{a+1}}exp\Bigg( \frac{-b}{\sigma^{2}} \Bigg) \Bigg] \ \text{ and rearrange:}$$
+$$f(\sigma^{2} \mid x, \theta)= \Bigg[ \frac{1}{(\sigma^{2})^{n/2}} \frac{1}{(\sigma^{2})^{a+1}}exp\Bigg( -\Sigma_i (x_i - \theta)^{2} / (2\sigma^{2}) \ \frac{-b}{\sigma^{2}} \Bigg) \Bigg]$$
+$$f(\sigma^{2} \mid x, \theta)= \Bigg[ \frac{1}{(\sigma^{2})^{n/2 + a + 1}} exp\Bigg( -\Sigma_i (x_i - \theta)^{2} / (2\sigma^{2}) \ \frac{-b}{\sigma^{2}} \Bigg) \Bigg]$$
+$$f(\sigma^{2} \mid x, \theta)= \Bigg[ \frac{1}{(\sigma^{2})^{n/2 + a + 1}} exp\Bigg( - \Bigg( \frac{1}{2} \frac{\Sigma_i (x_i - \theta)^{2}}{\sigma^{2}} + \frac{b}{\sigma^{2}} \Bigg) \Bigg) \Bigg]$$
+Thus the parameters of $\sigma^{2} \mid x, \theta$ have the form $a = n/2 + a$ and $b = \frac{1}{2} \Sigma_i (x_i - \theta)^{2} + b$. Next, we prove the conditional for $\theta \mid x, \sigma^{2}$:
+$$f(\theta \mid x, \sigma^{2}) = \Bigg[ \frac{1}{(\sigma^{2})^{n/2}}exp\Bigg( -\Sigma_i (x_i - \theta)^{2} / (2\sigma^{2}) \Bigg) \Bigg] \times \Bigg[ \frac{1}{\tau} exp \Bigg( -(\theta - \theta_0)^{2} / (2\tau^{2}) \Bigg) \Bigg] \times \Bigg[ \frac{1}{(\sigma^{2})^{a+1}}exp\Bigg( \frac{-b}{\sigma^{2}} \Bigg) \Bigg]$$
+$$f(\theta \mid x, \sigma^{2}) =  \frac{1}{(\sigma^{2})^{n/2 + a + 1}} exp \Bigg( \frac{-\Sigma_i (x_i - \theta)^{2}}{2\sigma^{2}} + \frac{-(\theta - \theta_0)^{2}}{2\tau^{2}}+\frac{-b}{\sigma^{2}} \Bigg)$$
+By expanding the summation, we get: $(x_1^{2} + x_2^{2} + ... + x_n^{2}) + (-2\theta x_1 - 2\theta x_2 - ... - 2\theta x_n) + n\theta^{2}$.  Using the identity $n\overline{x} = x_1 + x_2 + ... + x_n$, we can remove the summation term from the equation:
+$$=  \frac{1}{(\sigma^{2})^{n/2 + a + 1}} exp \Bigg( \frac{-2 \tau^{2} n ( \overline{x^{2}} - 2\theta \overline{x} + \theta^{2} ) + (2\sigma^{2})(-(\theta-\theta_0^{2})}{4\sigma^{2}\tau^{2}} + \frac{-b}{\sigma^{2}} \Bigg)$$
+$$=  \frac{1}{(\sigma^{2})^{n/2 + a + 1}} exp \Bigg( \frac{-2 \tau^{2} n ( \overline{x^{2}} - 2\theta \overline{x} + \theta^{2} ) + (-2\sigma^{2})( \theta^{2}-2\theta \theta_0+\theta_0^{2} )}{4\sigma^{2}\tau^{2}} + \frac{-b}{\sigma^{2}} \Bigg)$$
 \end{document}
 
 
