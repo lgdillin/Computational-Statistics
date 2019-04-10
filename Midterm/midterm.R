@@ -63,5 +63,8 @@ gibbs <- function(burn = 1000, nmc = 2000){
 }
 
 mcmc.fit <- gibbs()
-hist(log(mcmc.fit$sigma2[1001:2000]), breaks = 30, main="s(i) samples histogram", freq = F)
-hist(log(mcmc.fit$theta[1001:2000]), breaks = 30, main="s(i) samples histogram", freq = F)
+hist(mcmc.fit$sigma2[1001:2000], breaks = 30, main="log sigma^2 samples histogram", freq = F)
+hist(mcmc.fit$theta[1001:2000], breaks = 30, main="log theta samples histogram", freq = F)
+
+x1 = mcmc.fit$sigma2[1001:2000]
+plot(mcmc.fit$sigma2[1001:2000], mcmc.fit$theta[1001:2000])

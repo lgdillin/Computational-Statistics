@@ -233,6 +233,57 @@ $$f(\theta \mid x, \sigma^{2}) =  \frac{1}{(\sigma^{2})^{n/2 + a + 1}} exp \Bigg
 By expanding the summation, we get: $(x_1^{2} + x_2^{2} + ... + x_n^{2}) + (-2\theta x_1 - 2\theta x_2 - ... - 2\theta x_n) + n\theta^{2}$.  Using the identity $n\overline{x} = x_1 + x_2 + ... + x_n$, we can remove the summation term from the equation:
 $$=  \frac{1}{(\sigma^{2})^{n/2 + a + 1}} exp \Bigg( \frac{-2 \tau^{2} n ( \overline{x^{2}} - 2\theta \overline{x} + \theta^{2} ) + (2\sigma^{2})(-(\theta-\theta_0^{2})}{4\sigma^{2}\tau^{2}} + \frac{-b}{\sigma^{2}} \Bigg)$$
 $$=  \frac{1}{(\sigma^{2})^{n/2 + a + 1}} exp \Bigg( \frac{-2 \tau^{2} n ( \overline{x^{2}} - 2\theta \overline{x} + \theta^{2} ) + (-2\sigma^{2})( \theta^{2}-2\theta \theta_0+\theta_0^{2} )}{4\sigma^{2}\tau^{2}} + \frac{-b}{\sigma^{2}} \Bigg)$$
+
+\subsection{Using the normal model above, implement the gibbs sampler}
+\begin{lstlisting}[language=R]
+x = c(91, 504, 557, 609, 693, 727, 764, 803, 857, 
+	929, 970, 1043, 1089, 1195, 1384, 1713)
+n = length(x)
+a = 3
+b = 3
+tau2 = 10
+theta0 = 5
+
+theta_mu = function(sig2) {
+  mu1 = (sig2 * theta0) / (sig2 + n * tau2)
+  mu2 = (n * tau2 * mean(x)) / (sig2 + n * tau2)
+  return(mu1 + mu2)
+}
+
+theta_sig = function(sig2) {
+  sig = (sig2 * tau2) / (sig2 + n * tau2)
+  return(sig)
+}
+
+gibbs <- function(burn = 1000, nmc = 2000){
+  
+  theta <- rep(0, nmc+burn)
+  sigma2 <- rep(0, nmc+burn)
+  
+  sigma2[1] = rinvgamma(1, (n/2) + a, 0.5 * sum((x - theta0)^(2)) + b)
+  theta[1] = theta0; 
+  
+  for (i in 2:(burn+nmc)) {
+    
+    sigma2[i] <- rinvgamma(1, (n/2) + a, theta[i-1])
+    theta[i] <- rnorm(1, theta_mu(sigma2[i]), theta_sig(sigma2[i]))
+  }
+  return(list(sigma2=sigma2,theta=theta))
+}
+\end{lstlisting}
+\subsection{Plot histograms of $\log(\theta)$ and $\log(\sigma^{2})$ and report $90\%$ posterior probability intervals for both}
+\begin{figure}[!htbp]
+  	\centering
+   	\begin{subfigure}[p]{0.7\linewidth}
+    	\includegraphics[width=\linewidth]{../figures/midterm2.png}
+   	\end{subfigure}
+\end{figure} 
+\begin{figure}[!htbp]
+  	\centering
+   	\begin{subfigure}[p]{0.7\linewidth}
+    	\includegraphics[width=\linewidth]{../figures/midterm3.png}
+   	\end{subfigure}
+\end{figure} 
 \end{document}
 
 
