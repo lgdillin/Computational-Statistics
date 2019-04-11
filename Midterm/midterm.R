@@ -28,6 +28,7 @@ if(!require(rigamma)){
   install.packages("rigamma", dependencies = TRUE, repos = 'http://cran.rstudio.com')
 }
 
+library(invgamma)
 x = c(91, 504, 557, 609, 693, 727, 764, 803, 857, 929, 970, 1043, 1089, 1195, 1384, 1713)
 n = length(x)
 a = 3
@@ -63,8 +64,13 @@ gibbs <- function(burn = 1000, nmc = 2000){
 }
 
 mcmc.fit <- gibbs()
-hist(mcmc.fit$sigma2[1001:2000], breaks = 30, main="log sigma^2 samples histogram", freq = F)
-hist(mcmc.fit$theta[1001:2000], breaks = 30, main="log theta samples histogram", freq = F)
+log.theta = log(mcmc.fit$theta[1001:2000])
+log.sigma2 = log(mcmc.fit$sigma2[1001:2000])
+hist(log.sigma2, breaks = 30, main="log sigma^2 samples histogram", freq = F)
+hist(log.theta, breaks = 30, main="log theta samples histogram", freq = F)
 
-x1 = mcmc.fit$sigma2[1001:2000]
-plot(mcmc.fit$sigma2[1001:2000], mcmc.fit$theta[1001:2000])
+quant.theta = c(quantile(log.theta, 0.05), quantile(log.theta, 0.95))
+quant.sigma2 = c(quantile(log.sigma2, 0.05), quantile(log.sigma2, 0.95))
+
+interval.theta = sum((log.theta > quant.theta[1]) & (log.theta < quant.theta[2]))
+interval.sigma2 = sum((log.sigma2 > quant.sigma2[1]) & (log.sigma2 < quant.sigma2[2]))

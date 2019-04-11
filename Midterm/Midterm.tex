@@ -214,7 +214,7 @@ $$\frac{\partial SSE}{\partial b_i} = m_i \overline{x_i} + b_i = \overline{y} = 
 The situation is very similar. We can already infer that $b_i = 0$, due to the multiplication from the fact that $\overline{x_i} \text{ and } \overline{y_i} = 0$. Thus,
 $$m_i = \frac{- \overline{x_iy} + \frac{\lambda}{4}}{- \overline{x_i^{2}}}$$
 \subsection{Argue that in this setting, the lasso coefficients $\hat{\beta_1}$ and $\hat{\beta_2}$ are not unique - in other words, there are many possible solutions to the optimization problem in $(3)$. Describe these solutions.}
-The values for the two $\hat{\beta_1}$ and $\hat{\beta_2}$
+My 
 
 \section{Problem 3}
 A study on the metabolism in 15-year-old females yielded the following data:
@@ -236,6 +236,7 @@ $$=  \frac{1}{(\sigma^{2})^{n/2 + a + 1}} exp \Bigg( \frac{-2 \tau^{2} n ( \over
 
 \subsection{Using the normal model above, implement the gibbs sampler}
 \begin{lstlisting}[language=R]
+library(invgamma)
 x = c(91, 504, 557, 609, 693, 727, 764, 803, 857, 
 	929, 970, 1043, 1089, 1195, 1384, 1713)
 n = length(x)
@@ -270,6 +271,18 @@ gibbs <- function(burn = 1000, nmc = 2000){
   }
   return(list(sigma2=sigma2,theta=theta))
 }
+
+mcmc.fit <- gibbs()
+log.theta = log(mcmc.fit$theta[1001:2000])
+log.sigma2 = log(mcmc.fit$sigma2[1001:2000])
+hist(log.sigma2, breaks = 30, main="log sigma^2 samples histogram", freq = F)
+hist(log.theta, breaks = 30, main="log theta samples histogram", freq = F)
+
+quant.theta = c(quantile(log.theta, 0.05), quantile(log.theta, 0.95))
+quant.sigma2 = c(quantile(log.sigma2, 0.05), quantile(log.sigma2, 0.95))
+
+interval.theta = sum((log.theta > quant.theta[1]) & (log.theta < quant.theta[2]))
+interval.sigma2 = sum((log.sigma2 > quant.sigma2[1]) & (log.sigma2 < quant.sigma2[2]))
 \end{lstlisting}
 \subsection{Plot histograms of $\log(\theta)$ and $\log(\sigma^{2})$ and report $90\%$ posterior probability intervals for both}
 \begin{figure}[!htbp]
@@ -284,6 +297,15 @@ gibbs <- function(burn = 1000, nmc = 2000){
     	\includegraphics[width=\linewidth]{../figures/midterm3.png}
    	\end{subfigure}
 \end{figure} 
+
+$90\%$ posterior probability intervals for $\log(\theta)$ and $\log(\sigma^{2})$ note that $(n = 1000)$:
+\begin{verbatim}
+> interval.theta
+[1] 900
+> interval.sigma2
+[1] 900
+\end{verbatim}
+
 \end{document}
 
 
