@@ -1,0 +1,186 @@
+% !TEX TS-program = pdflatex
+% !TEX encoding = UTF-8 Unicode
+
+% This is a simple template for a LaTeX document using the "article" class.
+% See "book", "report", "letter" for other types of document.
+
+\documentclass[20pt]{article} % use larger type; default would be 10pt
+
+\usepackage[utf8]{inputenc} % set input encoding (not needed with XeLaTeX)
+
+%%% Examples of Article customizations
+% These packages are optional, depending whether you want the features they provide.
+% See the LaTeX Companion or other references for full information.
+
+%%% PAGE DIMENSIONS
+\usepackage{geometry} % to change the page dimensions
+\geometry{a4paper} % or letterpaper (US) or a5paper or....
+% \geometry{margin=2in} % for example, change the margins to 2 inches all round
+% \geometry{landscape} % set up the page for landscape
+%   read geometry.pdf for detailed page layout information
+
+\usepackage{graphicx} % support the \includegraphics command and options
+
+% \usepackage[parfill]{parskip} % Activate to begin paragraphs with an empty line rather than an indent
+
+%%% PACKAGES
+\usepackage{booktabs} % for much better looking tables
+\usepackage{array} % for better arrays (eg matrices) in maths
+\usepackage{paralist} % very flexible & customisable lists (eg. enumerate/itemize, etc.)
+\usepackage{verbatim} % adds environment for commenting out blocks of text & for better verbatim
+%\usepackage{subfig} % make it possible to include more than one captioned figure/table in a single float
+\usepackage{mathtools}
+\usepackage{graphicx} % supports images in latex
+% These packages are all incorporated in the memoir class to one degree or another...
+
+\usepackage{graphicx}
+\usepackage{subcaption}
+\usepackage{dsfont}
+
+%%% Other stuff
+\DeclarePairedDelimiter\ceil{\lceil}{\rceil}
+\DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
+
+%%% HEADERS & FOOTERS
+\usepackage{fancyhdr} % This should be set AFTER setting up the page geometry
+\pagestyle{fancy} % options: empty , plain , fancy
+\renewcommand{\headrulewidth}{0pt} % customise the layout...
+\lhead{}\chead{}\rhead{}
+\lfoot{}\cfoot{\thepage}\rfoot{}
+
+%%% SECTION TITLE APPEARANCE
+\usepackage{sectsty}
+\allsectionsfont{\sffamily\mdseries\upshape} % (See the fntguide.pdf for font help)
+% (This matches ConTeXt defaults)
+
+%%% ToC (table of contents) APPEARANCE
+\usepackage[nottoc,notlof,notlot]{tocbibind} % Put the bibliography in the ToC
+\usepackage[titles,subfigure]{tocloft} % Alter the style of the Table of Contents
+\renewcommand{\cftsecfont}{\rmfamily\mdseries\upshape}
+\renewcommand{\cftsecpagefont}{\rmfamily\mdseries\upshape} % No bold!
+
+%%% graphics path
+\usepackage{amsmath}
+\usepackage{listings}
+%\begin{lstlisting}[language=java]
+%\end{lstlisting}
+
+
+
+%%% END Article customizations
+
+%%% nice things to keep around
+%\begin{figure}[!htbp]
+%  	\centering
+%   	\begin{subfigure}[p]{0.5\linewidth}
+%    	\includegraphics[width=\linewidth]{}
+%   	\end{subfigure}
+%\end{figure} 
+
+% \noindent\rule{2cm}{0.4pt} 
+%%% puts a small horizontal line
+
+% \mathcal{O} 
+%%% big O notation
+
+% \begin{table}[!htbp]
+% \caption{Forward slash.}
+% \[\begin{array}{c|ccccc} 
+% abc/def & 1 & 2 & 3 & 4 & 5\\
+% \hline
+% 1 & a & b & c & d & e\\
+% 2 & f & g & h & i & j\\
+% 3 & k & l & m & n & o\\
+% \end{array}\]
+% \end{table}
+
+%%% The "real" document content comes below...
+
+\title{Computational Statistics Literature Review}
+\author{Liam Dillingham}
+%\date{} % Activate to display a given date or no date (if empty),
+         % otherwise the current date is printed 
+
+\begin{document}
+\maketitle
+
+\section{Introduction: \textit{Autoencoders, Unsupervised Learning, and Deep Architectures}}
+This paper discusses a few different cases (namely linear and nonlinear) of a learning device called an \textit{autoencoder}.  An \textit{autoencoder} is a type of \textit{artificial neural network}.  Typically an ANN is a supervised learner, i.e. given a set of inputs, we try to predict an output(s) label.  An autoencoder instead connects its outputs back to its inputs, and the goal of the network is to compress and reconstruct its inputs by learning the most significant signals in the data, and ignore the noise.  Once instance of use of autoencoders is dimensionality reduction, where the data is compressed into the desired number of dimensions, and then upon reconstruction, the quality of the compression can be measured by the difference in original inputs and predicted inputs.  Because of the construction of the autoencoder, and it's goal, it is an unsupervised learning method.
+
+The paper goes on to describe the difficulty in deriving a theoretical understanding of autoencoders, trying to solve their different cases analytically, and the results.  We will review the paper in three parts: The general case of the autoencoder, as described by the paper, a summary of the linear case of the autoencoder, and a summary of (what the paper calls the "most non-linear case") the Boolean autoencoder.
+
+\section{General Autoencoder Framework}
+This section defines the components of an autoencoder, and how the device operates to achieve its intended goal (i.e. optimization).  It describes an autoencder as an $n/p/n$ \textit{autoencoder}, where $n$ is the size of the input/output vector, and $p$ is the number of dimensions in which we are trying to compress the data into.  The componenets of an autoencoder can be contained within a tuple $(n,p,m,\mathds{F},\mathds{G},\mathcal{A},\mathcal{B}, \mathcal{X}, \Delta)$, where:
+\begin{enumerate}
+\item $\mathds{F},\mathds{G}$ are sets
+\item $n,p$ are the positive integers which we defined earlier, with the case $0 < p < n$
+\item $\mathcal{A}$ is the class of function which map $\mathds{G}^{p} \rightarrow \mathds{F}^{n}$, i.e. which \textit{decode} the data
+\item $\mathcal{B}$ is the class of function which map $\mathds{F}^{n} \rightarrow \mathds{G}^{p}$, i.e. which \textit{encode} the data
+\item $\mathcal{X}$ is a set of size $m$ of training vectors $x_t$ such that $x_t \in \mathds{F}^{n}$
+\item And $\Delta$ is our dissimilarity or distortion function defined over $\mathds{F}^{n}$.
+\end{enumerate}
+\newpage
+The goal of the autoencoder is to take any input vector $x_t \in \mathds{F}^{n}$ and transform it into an output vector.  Given $A \in \mathds{A}$ and $B \in \mathds{B}$, we have $A(B(x_t)) \in \mathds{F}^{n}$. The \textit{autoencoder problem} is to find $A,B$ which minimize the distortion function $\Delta$:
+$$ \min E(A,B) = \min_{A,B} \sum_{t=1}^{m}E(x_t) = \min_{A,B} \sum_{t=1}^{m}\Delta(A(B(x_t), x_t)$$
+The paper never really defines what the function $E(\cdot, \cdot)$, but based on the rest of the paper, it seems as though it is the error function.
+
+\section{The Case of the Linear Autoencoder}
+The paper states that for the linear case, the \textit{autoencoder problem} can actually be solved analytically over $\mathds{R}$. While the problem is not convex, the landscape of $E$ has no local minima.  Each location of $E$ which has gradient zero corresponds to projections onto subspaces.  These projections corresponds to the global minimum and the results of Principal component analysis.  That is, the $p$ value of the autoencoder would correspond to the first $p$ principal components.
+
+\section{The Case of the Boolean Autoencoder}
+The optimization problem for the non-linear (in this case the "most" non-linear) is NP-hard.  That is one must specify the regime of interested characterized by our variables $n,m,p$, and which of these are diverging towards infinity.  If $p$ does not goto infinity, then the problem can be polynomial, for instance, when the centroids belong to the training set.  It is also worth noting that unlike the linear case, this non-linear case may have many local minima.  However, we can approximate the solutions (and perhaps verify that we are not in a local minima), by using a clustering algorithm such as K-Means.  By computing K-Means, and picking the optimal $k$, we can check how closely our autoencoder matches the approximate solution.  If there is a large enough difference, we may be in a local minima.
+
+\section{Clustering Complexity on the Hypercube}
+This section describes the clustering complexity for the Boolean Autoencoder, and proves that optimizing a boolean autoencoder is NP-hard. \\
+\textbf{Theorem.} Consider the following hypercube clustering problem: \\
+Input: $m$ binary vectors $x_1, ..., x_m$ of length $n$ and integer $k$. \\
+Output: $k$ binary vectors $c_1, ..., c_k$ of length $n$ (the centroids) and a function $f$ from $\{x_1, ..., x_m\} \rightarrow \{c_1, ..., c_k\}$ that minimizes the distortion $E = \sum_{t=1}^{m} \Delta(x_t, f(x_t))$ where $\Delta$ is the Hamming distance. The hypercube clustering problem is NP hard when $k \sim m^{\epsilon} (\epsilon > 0)$. \\
+\textbf{Proof.} I'll remove the proof for the summary of this paper. \\
+
+when $p \geq n$, then the function can be rationalized as simply the identity function unless addition constraints are added.  These additional nodes in the hidden layer can also add noise to the data.
+
+\section{Discussion}
+The paper, in its full length, goes to show the connection between autoencoders and information and coding theory, with two points:
+\begin{enumerate}
+\item When $n < p$, this case corresponds to the classical noisy channel transmission and coding problem
+\item When $p < n$, We get the expected compression which we outlined in the beginning of this review.  The compression can be lossy when the number of states/neurons in the hidden layer is less than the number of training examples, and lossless otherwise
+\end{enumerate}
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
