@@ -202,8 +202,8 @@ My best guess is for some perplexity value we want to test, we run t-SNE with a 
 It seems as though the best value is about 17.  Now, we can flip the experiment around, and test early exaggeration values, or test random seeds, and so on.  But for now, lets pick a random value of early exaggeration, say 20 (that's about the middle of our testing) and a perplexity value of 17.
 \begin{figure}[!htbp]
   	\centering
-   	\begin{subfigure}[p]{0.8\linewidth}
-    	\includegraphics[width=\linewidth]{./figures/best_perp.png}
+   	\begin{subfigure}[p]{0.7\linewidth}
+    	\includegraphics[width=\linewidth]{./figures/best_tsne.png}
    	\end{subfigure}
 \end{figure}
 Since the differences between the colors are so subtle, I scaled up the size of the points drastically to aid in the visualization.  We can see here that the groupings are much better, but how do we know that these are good classifications?  Let's run KMeans with many different fixed random seeds, and select the best one. Since KMeans can be made deterministic, if we can derive good results, they will be easily interpretable and reproducible.  
