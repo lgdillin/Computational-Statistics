@@ -15,3 +15,4 @@ nci.pca = prcomp(nci.data, center = T, scale. = T)
 summary(nci.pca)
 
 write.csv(nci.pca$x, file = "nci60.csv", row.names = F)
+write.csv(nci.labs, file="ncilabs.csv", row.names = F)
